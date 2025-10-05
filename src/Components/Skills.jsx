@@ -25,28 +25,28 @@ export default function Skills() {
     {
       title: 'Frontend',
       skills: [
-        { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'Tailwind CSS', level: 92 },
-        { name: 'Next.js', level: 88 },
+        { name: 'React', level: 100 },
+        { name: 'Tailwind CSS', level: 100 },
+        { name: 'Chakra UI', level: 100 },
+        { name: 'Next.js', level: 100 },
       ],
     },
     {
       title: 'Backend',
       skills: [
-        { name: 'Node.js', level: 90 },
-        { name: 'PostgreSQL', level: 85 },
-        { name: 'Express', level: 88 },
-        { name: 'REST APIs', level: 93 },
+        { name: 'Node.js', level: 100 },
+        { name: 'Express', level: 100 },
+        { name: 'MongoDB & Mongoose', level: 100 },
+        { name: 'REST APIs', level: 100 },
       ],
     },
     {
       title: 'Tools & Others',
       skills: [
-        { name: 'Git', level: 92 },
-        { name: 'Docker', level: 80 },
-        { name: 'AWS', level: 75 },
-        { name: 'Figma', level: 85 },
+        { name: 'Git', level: 100 },
+         { name: 'Postman', level: 100 },
+        { name: 'Software Debugging', level: 100 },
+        { name: 'Testing', level: 100 },
       ],
     },
   ];
@@ -89,9 +89,9 @@ export default function Skills() {
                     <div key={skillIndex} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="text-slate-300 font-medium">{skill.name}</span>
-                        <span className="text-cyan-400">{skill.level}%</span>
+                        {/* <span className="text-cyan-400">{skill.level}%</span> */}
                       </div>
-                      <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
                         <div
                           className={`h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-1500 ease-out ${
                             isVisible ? 'w-full' : 'w-0'
@@ -112,7 +112,7 @@ export default function Skills() {
 
         <div className={`mt-12 text-center transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           <div className="inline-flex flex-wrap gap-3 justify-center">
-            {['JavaScript', 'Python', 'GraphQL', 'MongoDB', 'Redis', 'CI/CD', 'Agile'].map((tech, index) => (
+            {['JavaScript (ES6+)', 'Authentication & Authorization', 'Payment Gateway Integration', 'Redis', 'CI/CD', 'Figma'].map((tech, index) => (
               <span
                 key={index}
                 className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 text-sm hover:border-cyan-400 hover:text-cyan-400 transition-all cursor-default"

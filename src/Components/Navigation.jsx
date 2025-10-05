@@ -30,12 +30,12 @@ function Navigation({ activeSection }) {
           >
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-700 group-hover:border-cyan-400 transition-all duration-300">
               <img
-                src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2"
+                src="https://media.istockphoto.com/id/1425457625/photo/coding-chat-sign-on-dark-background-3d-render-concept-for-developer.jpg?s=612x612&w=0&k=20&c=gjDcq3d_fZV011nqa23QmHnUDkWfiymnqId55_gjgLY="
                 alt="Professional"
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300">Developer</span>
+            <span className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300">Developer</span>
           </button>
 
           <div className="hidden md:flex items-center gap-1">
