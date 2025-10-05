@@ -28,7 +28,7 @@ function Hero() {
 
   const handleDownloadResume = useCallback(() => {
     const link = document.createElement('a');
-    link.href = 'https://drive.google.com/uc?export=download&id=1nG-WuMZcYLKbbO_htiwMn6lNmC3_A5C6';
+    link.href = 'https://drive.google.com/file/d/1zdWi_wEw9fAgHcP13l3W53Tm9rM1l-qz/view?usp=sharing';
     link.download = 'Sankalp_Patel_Resume.pdf';
     document.body.appendChild(link);
     link.click();
