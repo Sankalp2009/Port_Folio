@@ -7,6 +7,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+   base: '/Port_Folio/',
   build: {
     rollupOptions: {
       output: {
