@@ -93,13 +93,15 @@ export default function Hero() {
           <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
             <div className="relative w-full max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-3xl opacity-30 animate-pulse" />
-              <div className="relative aspect-square rounded-full overflow-hidden border-4 border-slate-800 shadow-2xl">
+              <div className="relative aspect-square rounded-full overflow-hidden border-4 border-slate-700/50 shadow-2xl shadow-cyan-500/20">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10" />
                 <img
                   src="https://res.cloudinary.com/dn2q6aoex/image/upload/v1759600786/Photo2_w4qlh8.jpg"
                   alt="Developer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center scale-110 hover:scale-115 transition-transform duration-700"
+                  style={{ objectPosition: 'center 40%' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-cyan-500/5" />
               </div>
               <div className="absolute -z-10 inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-2xl opacity-20 animate-spin-slow" />
             </div>
