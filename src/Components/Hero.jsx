@@ -1,4 +1,4 @@
-import { Github, Linkedin, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, ArrowDown, Download } from 'lucide-react';
 import { useEffect, useState, useCallback, memo, useMemo } from 'react';
 
 const FloatingParticle = memo(({ style }) => (
@@ -24,6 +24,15 @@ function Hero() {
   const scrollToAbout = useCallback(() => {
     const element = document.getElementById('about');
     if (element) element.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const handleDownloadResume = useCallback(() => {
+    const link = document.createElement('a');
+    link.href = 'https://drive.google.com/uc?export=download&id=1nG-WuMZcYLKbbO_htiwMn6lNmC3_A5C6';
+    link.download = 'Sankalp_Patel_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }, []);
 
   const particles = useMemo(() =>
@@ -76,10 +85,12 @@ function Hero() {
               >
                 Get In Touch
               </button>
-              <button className="px-8 py-3 border border-slate-700 text-white rounded-lg font-medium hover:border-cyan-400 hover:text-cyan-400 transition-all" >
-                <div className="flex flex-wrap gap-2">
-                  <a href="https://drive.google.com/file/d/1nG-WuMZcYLKbbO_htiwMn6lNmC3_A5C6/view?usp=sharing" rel="noreferrer" target="_blank">Resume</a>
-                </div>
+              <button
+                onClick={handleDownloadResume}
+                className="px-8 py-3 border border-slate-700 text-white rounded-lg font-medium hover:border-cyan-400 hover:text-cyan-400 transition-all flex items-center gap-2"
+              >
+                <Download size={18} />
+                <span>Download Resume</span>
               </button>
             </div>
 
