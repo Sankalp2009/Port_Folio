@@ -1,38 +1,52 @@
-import { Github, Linkedin, Mail, ArrowDown, Download } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Github, Linkedin, ArrowDown } from 'lucide-react';
+import { useEffect, useState, useCallback, memo, useMemo } from 'react';
 
-export default function Hero() {
+const FloatingParticle = memo(({ style }) => (
+  <div className="absolute bg-cyan-400/20 rounded-full animate-float" style={style} />
+));
+
+FloatingParticle.displayName = 'FloatingParticle';
+
+function Hero() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const scrollToContact = () => {
+  const scrollToContact = useCallback(() => {
     const element = document.getElementById('contact');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
+
+  const scrollToAbout = useCallback(() => {
+    const element = document.getElementById('about');
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const particles = useMemo(() =>
+    [...Array(30)].map((_, i) => ({
+      key: i,
+      style: {
+        width: Math.random() * 4 + 2 + 'px',
+        height: Math.random() * 4 + 2 + 'px',
+        left: Math.random() * 100 + '%',
+        top: Math.random() * 100 + '%',
+        animationDelay: Math.random() * 5 + 's',
+        animationDuration: Math.random() * 10 + 10 + 's',
+      }
+    })), []
+  );
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-slate-950 to-blue-500/10" />
 
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-cyan-400/20 rounded-full animate-float"
-            style={{
-              width: Math.random() * 4 + 2 + 'px',
-              height: Math.random() * 4 + 2 + 'px',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              animationDelay: Math.random() * 5 + 's',
-              animationDuration: Math.random() * 10 + 10 + 's',
-            }}
-          />
+        {particles.map(particle => (
+          <FloatingParticle key={particle.key} style={particle.style} />
         ))}
       </div>
 
@@ -97,7 +111,9 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10" />
                 <img
                   src="https://res.cloudinary.com/dn2q6aoex/image/upload/v1759600786/Photo2_w4qlh8.jpg"
-                  alt="Developer"
+                  alt="Sankalp Patel"
+                  loading="eager"
+                  decoding="async"
                   className="w-full h-full object-cover object-center scale-110 hover:scale-115 transition-transform duration-700"
                   style={{ objectPosition: 'center 40%' }}
                 />
@@ -110,14 +126,14 @@ export default function Hero() {
       </div>
 
       <button
-        onClick={() => {
-          const element = document.getElementById('about');
-          if (element) element.scrollIntoView({ behavior: 'smooth' });
-        }}
+        onClick={scrollToAbout}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-400 hover:text-cyan-400 transition-colors animate-bounce"
+        aria-label="Scroll to about section"
       >
         <ArrowDown size={32} />
       </button>
     </section>
   );
 }
+
+export default memo(Hero);

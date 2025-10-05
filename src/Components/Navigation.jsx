@@ -1,24 +1,24 @@
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 
-export default function Navigation({ activeSection }) {
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+];
+
+function Navigation({ activeSection }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
-  ];
-
-  const scrollToSection = (id) => {
+  const scrollToSection = useCallback((id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsOpen(false);
     }
-  };
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-slate-800/50 shadow-lg">
@@ -80,3 +80,5 @@ export default function Navigation({ activeSection }) {
     </nav>
   );
 }
+
+export default memo(Navigation);
