@@ -77,7 +77,7 @@ export default function Contact() {
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
                 const content = (
-                  <div className="flex items-center gap-4 p-4 bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl hover:border-cyan-400/50 transition-all group cursor-pointer">
+                  <div className="flex items-center gap-6 p-4 bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl hover:border-cyan-400/50 transition-all group cursor-pointer">
                     <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-slate-800 group-hover:bg-gradient-to-r group-hover:from-cyan-500 group-hover:to-blue-500 transition-all">
                       <Icon className="text-cyan-400 group-hover:text-white transition-colors" size={20} />
                     </div>
