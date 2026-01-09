@@ -2,7 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
 import { ThemeProvider } from "@/hooks/use-theme";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const SkillsSection = lazy(() => import("@/components/SkillsSection"));
