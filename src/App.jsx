@@ -1,59 +1,32 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
-import Navigation from './Components/Navigation.jsx';
-import Hero from './Components/Hero.jsx';
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const About = lazy(() => import('./Components/About.jsx'));
-const Skills = lazy(() => import('./Components/Skills.jsx'));
-const Projects = lazy(() => import('./Components/Projects.jsx'));
-const Contact = lazy(() => import('./Components/Contact.jsx'));
+const Index = lazy(() => import("./pages/Index"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-function App() {
-  const [activeSection, setActiveSection] = useState('home');
+const queryClient = new QueryClient();
 
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const sections = ['home', 'about', 'skills', 'projects', 'contact'];
-          const scrollPosition = window.scrollY + 100;
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+);
 
-          for (const section of sections) {
-            const element = document.getElementById(section);
-            if (element) {
-              const { offsetTop, offsetHeight } = element;
-              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                setActiveSection(section);
-                break;
-              }
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <div className="min-h-screen bg-slate-950">
-      <Navigation activeSection={activeSection} />
-      <Hero />
-      <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
-        </div>
-      }>
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </Suspense>
-    </div>
-  );
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <BrowserRouter basename="/Port_Folio/">
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
