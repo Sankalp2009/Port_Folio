@@ -7,10 +7,10 @@ const projects = [
   {
     title: 'Shopsy',
     description: 'A full-featured online shopping platform with real-time inventory management and analytics dashboard.',
-    image: 'https://res.cloudinary.com/dn2q6aoex/image/upload/v1761562114/Screenshot_77_vqhguc.png',
+    image: 'https://res.cloudinary.com/dn2q6aoex/image/upload/v1775755243/Img1_qctnvl.png',
     tags: ["React", "Node.js", "Express.js", "MongoDB"],
-    liveUrl: 'https://shopsy-ecomm-eight.vercel.app/',
-    githubUrl: 'https://github.com/Sankalp2009/Shopsy_Ecomm',
+    liveUrl: 'https://slyvarae-ecomm-eight.vercel.app/',
+    githubUrl: 'https://github.com/Sankalp2009/Slyvarae_Ecomm',
     featured: true,
   },
   {
