@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { optimizeCloudinaryUrl } from '@/lib/images';
 import { useRef } from 'react';
 
 const projects = [
@@ -126,9 +127,12 @@ const ProjectsSection = () => {
             >
               <div className="relative overflow-hidden aspect-[4/3]">
                 <motion.img
-                  src={project.image}
+                  src={optimizeCloudinaryUrl(project.image)}
                   alt={project.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   whileHover={{ scale: 1.15 }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
                 />

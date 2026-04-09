@@ -6,7 +6,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000,
+      gcTime: 5 * 60_000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-screen">

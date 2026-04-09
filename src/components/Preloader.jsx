@@ -1,27 +1,45 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+/** Short ramp + exit so content is usable quickly (first visit only; repeat visits skip in Index). */
+const PRELOADER_PROGRESS_MS = 360;
+const PRELOADER_EXIT_MS = 300;
 
 const Preloader = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsExiting(true);
-            setTimeout(onComplete, 800);
-          }, 300);
-          return 100;
-        }
-        return prev + Math.random() * 15 + 5;
-      });
-    }, 100);
+    const start = performance.now();
+    let raf = 0;
+    let exitTimer;
+    let completeTimer;
 
-    return () => clearInterval(interval);
-  }, [onComplete]);
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / PRELOADER_PROGRESS_MS);
+      setProgress(Math.round(t * 100));
+      if (t < 1) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      exitTimer = setTimeout(() => {
+        setIsExiting(true);
+        completeTimer = setTimeout(
+          () => onCompleteRef.current(),
+          PRELOADER_EXIT_MS
+        );
+      }, 120);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(exitTimer);
+      clearTimeout(completeTimer);
+    };
+  }, []);
 
   const letterVariants = {
     initial: { y: 50, opacity: 0 },
@@ -45,7 +63,7 @@ const Preloader = ({ onComplete }) => {
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
           exit={{
             clipPath: 'circle(0% at 50% 50%)',
-            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+            transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
           }}
         >
           {/* Background decorations */}

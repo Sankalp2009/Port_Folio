@@ -7,8 +7,9 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowDown, Github, Linkedin } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import Scene3D from "./Scene3D";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+
+const Scene3D = lazy(() => import("./Scene3D"));
 
 // Typing animation roles
 const roles = [
@@ -403,6 +404,7 @@ const TypingAnimation = ({ words }) => {
 const HeroSection = () => {
   const containerRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
+  const [loadScene3D, setLoadScene3D] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -422,6 +424,19 @@ const HeroSection = () => {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    const enable = () => setLoadScene3D(true);
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(enable, { timeout: 2200 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = window.setTimeout(enable, 150);
+    return () => window.clearTimeout(t);
   }, []);
 
   const scrollToAbout = () => {
@@ -451,7 +466,11 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden bg-gradient-hero"
     >
-      <Scene3D />
+      {loadScene3D && (
+        <Suspense fallback={null}>
+          <Scene3D />
+        </Suspense>
+      )}
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/20 to-background pointer-events-none" />
@@ -665,6 +684,8 @@ const HeroSection = () => {
                   src={sankalpPhoto}
                   alt="Sankalp Patel"
                   className="w-full h-full object-cover"
+                  decoding="async"
+                  fetchPriority="high"
                   initial={{ scale: 1.2 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 1.5, ease: "easeOut" }}

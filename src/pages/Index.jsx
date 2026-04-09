@@ -2,7 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
 import { ThemeProvider } from "@/hooks/use-theme";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useCallback, useState } from "react";
 
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const SkillsSection = lazy(() => import("@/components/SkillsSection"));
@@ -10,24 +10,32 @@ const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
 
+const PRELOADER_SESSION_KEY = "pf_preloader_done_v1";
+
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    try {
+      return sessionStorage.getItem(PRELOADER_SESSION_KEY) !== "1";
+    } catch {
+      return true;
+    }
+  });
+  const handlePreloaderComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem(PRELOADER_SESSION_KEY, "1");
+    } catch {
+      /* private mode */
+    }
+    setIsLoading(false);
+  }, []);
 
   return (
     <ThemeProvider>
-      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       <main className="min-h-screen bg-background">
         <Navbar />
         <HeroSection />
-        <Suspense
-          fallback={
-            <div className="h-40 flex items-center justify-center">
-              <div className="animate-pulse text-primary/50">
-                Loading section...
-              </div>
-            </div>
-          }
-        >
+        <Suspense fallback={<div className="min-h-[12rem]" aria-hidden />}>
           <AboutSection />
           <SkillsSection />
           <ProjectsSection />

@@ -2,9 +2,20 @@
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { defineConfig } from "vite";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    ViteImageOptimizer({
+      logStats: true,
+      cache: true,
+      png: { quality: 82 },
+      jpeg: { quality: 82, mozjpeg: true },
+      jpg: { quality: 82, mozjpeg: true },
+      webp: { quality: 82 },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -47,7 +58,7 @@ export default defineConfig({
       "react-dom",
       "react-router-dom",
       "framer-motion",
-      "three",
     ],
+    // `three` loads on demand with lazy Scene3D — omit so it is not pre-bundled into the dev cold path.
   },
 });
