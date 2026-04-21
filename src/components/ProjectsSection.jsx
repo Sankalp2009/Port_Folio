@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { optimizeCloudinaryUrl } from '@/lib/images';
@@ -6,7 +6,7 @@ import { useRef } from 'react';
 
 const projects = [
   {
-    title: 'Shopsy',
+    title: 'Slyvarae E-Commerce',
     description: 'A full-featured online shopping platform with real-time inventory management and analytics dashboard.',
     image: 'https://res.cloudinary.com/dn2q6aoex/image/upload/v1775755243/Img1_qctnvl.png',
     tags: ["React", "Node.js", "Express.js", "MongoDB"],

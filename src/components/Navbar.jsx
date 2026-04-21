@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import InteractiveLogo from "./InteractiveLogo";
@@ -20,7 +20,7 @@ const Navbar = () => {
   const handleDownloadResume = useCallback(() => {
     const link = document.createElement("a");
     link.href =
-      "https://drive.google.com/file/d/1A4IApCAsqwv7RdAL7AJZ2_HL1RF3_kpQ/view?usp=sharing";
+      "https://drive.google.com/file/d/1AljkEB9kcxp0xfBdwkaCn02OWMWcBzPF/view?usp=sharing";
     link.download = "Sankalp_Patel_Resume.pdf";
     document.body.appendChild(link);
     link.click();
