@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import InteractiveLogo from "./InteractiveLogo";

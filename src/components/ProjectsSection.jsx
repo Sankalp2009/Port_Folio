@@ -1,4 +1,4 @@
-import { useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { optimizeCloudinaryUrl } from '@/lib/images';
